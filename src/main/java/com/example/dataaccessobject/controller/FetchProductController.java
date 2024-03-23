@@ -1,12 +1,13 @@
-package com.example.dataaccessobject;
+package com.example.dataaccessobject.controller;
 
+import com.example.dataaccessobject.repository.DBRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
 public class FetchProductController {
 
-    DBRepository dbRepository;
+    private DBRepository dbRepository;
 
     public FetchProductController(DBRepository dbRepository) {
         this.dbRepository = dbRepository;

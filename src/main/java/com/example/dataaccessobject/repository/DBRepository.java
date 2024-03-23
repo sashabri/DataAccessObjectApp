@@ -1,6 +1,5 @@
-package com.example.dataaccessobject;
+package com.example.dataaccessobject.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,9 +15,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class DBRepository {
-    String query;
+    private String query;
 
-    @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public DBRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -39,9 +37,7 @@ public class DBRepository {
         Map<String, Object> parametrs = new HashMap<>();
         parametrs.put("name", "alexey");
 
-        List<String> productNames = namedParameterJdbcTemplate.query(query, parametrs, (resultSet, rowNum) -> {
-            return resultSet.getString("o.product_name");
-        });
+        List<String> productNames = namedParameterJdbcTemplate.queryForList(query, parametrs, String.class);
 
         return (!productNames.isEmpty() ? productNames.get(0) : null);
     }
